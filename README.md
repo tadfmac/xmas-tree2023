@@ -10,7 +10,16 @@ Xmass Tree基板
 
 ## 部品一覧
 
-T.B.D.
+|パーツ|数量|
+|:---|---:|
+|[Seeed XIAO RP2040](https://www.seeedstudio.com/XIAO-RP2040-v1-0-p-5026.html)|1|
+|WS2812B (v5でない旧ver.)|15|
+|[PL9823-F5](https://akizukidenshi.com/catalog/g/gI-08411/)|1|
+|500mA ポリスイッチ (1206)|1|
+|抵抗 10kΩ (0603)|19|
+|コンデンサ 10uF (0805)|16|
+|M3ナベネジ 20mm|1|
+|M3ナット|1|
 
 ## ファームウエア
 
