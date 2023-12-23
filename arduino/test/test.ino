@@ -29,6 +29,8 @@ void setup() {
   pinMode(MODE_PIN, INPUT);
 
   MODE = digitalRead(MODE_PIN);
+
+  randomSeed(analogRead(0));
   
 }
 
@@ -69,11 +71,35 @@ void blink2(){
   delay(100);
 }
 
+void blink3(){
+  int led = random(15);
+  int r = random(16);
+  int g = random(16);
+  int b = random(16);
+  pixels.setPixelColor(led, pixels.Color(r, g, b));
+  led = random(15);
+  r = random(16);
+  g = random(16);
+  b = random(16);
+  pixels.setPixelColor(led, pixels.Color(r, g, b));
+  led = random(15);
+  r = random(16);
+  g = random(16);
+  b = random(16);
+  pixels.setPixelColor(led, pixels.Color(r, g, b));
+  pixels.setPixelColor(TOP_LED, pixels.Color(16, 16, 16));
+  pixels.show();
+  delay(200);
+  pixels.clear();
+  pixels.show();
+  delay(200);
+}
+
 void blink(){
   if(MODE == HIGH){
     blink1();
   }else{
-    blink2();
+    blink3();
   }
 }
 
