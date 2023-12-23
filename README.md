@@ -28,6 +28,12 @@ Xmass Tree基板
 
 - [test (LED blinkのみ)](./arduino/test/test.ino)
 
+## スタンド (3Dデータ)
+
+![stand1](./3dprint/stand/stand1.png)
+
+[ファイル](./3dprint/stand/TreeStand1.stl)
+
 ## Licenses
 
 MIT
