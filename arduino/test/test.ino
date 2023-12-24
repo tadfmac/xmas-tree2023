@@ -95,9 +95,38 @@ void blink3(){
   delay(200);
 }
 
+void blink4(){
+  pixels.clear();
+  int led = random(15);
+  int r = random(16);
+  int g = random(16);
+  int b = random(16);
+  pixels.setPixelColor(led, pixels.Color(r, g, b));
+  led = random(15);
+  r = random(16);
+  g = random(16);
+  b = random(16);
+  pixels.setPixelColor(led, pixels.Color(r, g, b));
+  led = random(15);
+  r = random(16);
+  g = random(16);
+  b = random(16);
+  pixels.setPixelColor(led, pixels.Color(r, g, b));
+  pixels.setPixelColor(TOP_LED, pixels.Color(16, 16, 16));
+  pixels.show();
+  delay(500);
+  r = random(16);
+  g = random(16);
+  b = random(16);
+  pixels.setPixelColor(TOP_LED, pixels.Color(r, g, b));
+  pixels.show();
+  delay(3500);
+}
+
+
 void blink(){
   if(MODE == HIGH){
-    blink1();
+    blink4();
   }else{
     blink3();
   }
