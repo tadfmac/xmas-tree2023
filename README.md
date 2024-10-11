@@ -1,6 +1,6 @@
-# xmass-tree2023
+# xmas-tree2023
 
-Xmass Tree基板
+Xmas Tree基板
 
 ![image](./image.png)
 
@@ -27,6 +27,21 @@ Xmass Tree基板
 ## ファームウエア
 
 - [test (LED blinkのみ)](./arduino/test/test.ino)
+- [usb-midi (WIP)](./arduino/usb-midi/usb-midi.ino)
+
+## usb-midi ver.のテスト
+
+```
+cd xmas-tree2023
+npm i
+node ./app.mjs
+```
+これで webサーバが立ち上がるので、ブラウザから下記URLにアクセス
+
+```
+http://localhost:2000/
+```
+画面には何も表示されませんが、xmas-tree2023を接続するとLEDが点滅します。
 
 ## スタンド (3Dデータ)
 
