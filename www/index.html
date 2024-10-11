@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+<meta name="description" content="Tree Test">
+<title>Tree Test</title>
+<style>
+</style>
+</head>
+<body>
+<script type="module">
+///////////////////////////////////////////////////////////////////////
+// for Tree
+import pomidi from "./pomidi.mjs";
+let midi = new pomidi();
+await midi.init();
+
+let cnt = 0;
+let cnt1 = 1;
+let cnt2 = 10;
+
+setInterval(async ()=>{
+  let val = cnt1+cnt2;
+  let num = cnt % 7;
+
+  midi.sendNoteOn(num,val);
+  console.log("sent: num="+num+" val="+val);
+
+  cnt++;
+  if(cnt>=16){
+    cnt = 0;
+  }
+  if(cnt>=8){
+    cnt2=20;
+  }else{
+    cnt2=10;
+  }
+  cnt1 = (cnt % 8)+1;
+  await midi.wait(300);
+  midi.sendNoteOff(num);
+
+},500);
+
+</script>  
+</body>
+</html>

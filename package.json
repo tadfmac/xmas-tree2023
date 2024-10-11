@@ -1,0 +1,16 @@
+{
+  "name": "xmas-tree",
+  "version": "1.0.0",
+  "description": "xmas-tree 2023 test application",
+  "type": "module",
+  "main": "app.mjs",
+  "scripts": {
+    "start": "node ./app.mjs"
+  },
+  "author": "D.F.Mac. @TripArts Music",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1"
+  }
+}
