@@ -17,7 +17,7 @@ let midi = new pomidi();
 await midi.init();
 
 let cnt = 0;
-let cnt1 = 1;
+let cnt1 = 0;
 let cnt2 = 10;
 
 setInterval(async ()=>{
@@ -28,15 +28,19 @@ setInterval(async ()=>{
   console.log("sent: num="+num+" val="+val);
 
   cnt++;
-  if(cnt>=16){
+  if(cnt>=32){
     cnt = 0;
   }
-  if(cnt>=8){
+  if(cnt>=24){
+    cnt2=40;
+  }else if(cnt>=16){
+    cnt2=30;
+  }else if(cnt>=8){
     cnt2=20;
   }else{
     cnt2=10;
   }
-  cnt1 = (cnt % 8)+1;
+  cnt1 = (cnt % 8);
   await midi.wait(300);
   midi.sendNoteOff(num);
 
