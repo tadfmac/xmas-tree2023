@@ -6,43 +6,88 @@
 <meta name="description" content="Tree Test">
 <title>Tree Test</title>
 <style>
+*{
+  margin:0px;
+  padding:0px;
+  box-sizing: border-box;
+}
+html,body {
+  height: 100%;
+  margin: 0;
+  background-color:gray;
+}
+#svgWrap{
+  width:90%;
+  height:90%;
+  overflow:hidden;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.treewrap{
+  width:80%;
+  height:80%;
+/*  overflow:hidden; */
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+#treewrap > svg{
+  width:100%;
+  height:100%;
+  display:block;
+}
+#aWrap{
+  width:100%;
+  height:100%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
 </style>
 </head>
 <body>
+<div id="aWrap">
+  <div id="svgWrap"></div>
+</div>
 <script type="module">
 ///////////////////////////////////////////////////////////////////////
 // for Tree
-import pomidi from "./pomidi.mjs";
-let midi = new pomidi();
-await midi.init();
+const $svgWrap = document.querySelector("#svgWrap");
 
-let cnt = 0;
-let cnt1 = 0;
-let cnt2 = 10;
+import Tree from "./tree.mjs";
+let tree = new Tree($svgWrap);
+tree = await tree.init();
+
+let color = 0;
+let val10 = 0;
+let val1 = 0;
+let devices = null;
+
+let onchange = (_devices) =>{
+  devices = _devices;
+};
+tree.setOnChange(onchange);
 
 setInterval(async ()=>{
-  let val = cnt1+cnt2;
-  let num = cnt % 7;
-
-  midi.sendNoteOn(num,val);
-  console.log("sent: num="+num+" val="+val);
-
-  cnt++;
-  if(cnt>=32){
-    cnt = 0;
+  if(devices != null){
+    for(let cnt=0;cnt<devices.length;cnt++){
+      let did = devices[cnt].did;
+      let v10 = (val10+cnt)%4;
+      tree.send(did,color,v10,val1);
+    }
   }
-  if(cnt>=24){
-    cnt2=40;
-  }else if(cnt>=16){
-    cnt2=30;
-  }else if(cnt>=8){
-    cnt2=20;
-  }else{
-    cnt2=10;
+  color++;
+  color %= 7;
+  val1++;
+  val1 %= 8;
+  if(val1 == 7){
+    val10++;
+    val10 %= 4;
   }
-  cnt1 = (cnt % 8);
-  await midi.wait(300);
-  midi.sendNoteOff(num);
+  await tree.wait(300);
+  tree.clearAll(null);
 
 },500);
 

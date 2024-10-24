@@ -8,6 +8,7 @@
  
  - 2024/10/10 : alpha
  - 2024/10/14 : beta
+ - 2024/10/24 : beta2
 
 */
 extern "C" void flash_get_unique_id(uint8_t *p);
@@ -155,8 +156,26 @@ uint32_t green = pixels.Color(0, 16, 0);
 uint32_t blue = pixels.Color(0, 0, 16);
 uint32_t purple = pixels.Color(12, 0, 12);
 uint32_t yellow = pixels.Color(12, 12, 0);
+uint32_t cyan = pixels.Color(0, 12, 12);
 uint32_t white = pixels.Color(8, 8, 8);
-uint32_t colors[] = {red,green,blue,purple,yellow,white};
+
+uint32_t red_t = pixels.Color(0, 16, 0);
+uint32_t green_t = pixels.Color(16, 0, 0);
+uint32_t purple_t = pixels.Color(0, 12, 12);
+uint32_t cyan_t = pixels.Color(12, 0, 12);
+
+uint32_t colors[] = {red,green,blue,purple,yellow,cyan,white};
+uint32_t topColors[] = {red_t,green_t,blue,purple_t,yellow,cyan_t,white};
+
+void setColor(int num, int cIdx){
+  uint32_t color;
+  if(num == 15){
+    color = topColors[cIdx];
+  }else{
+    color = colors[cIdx];
+  }
+  pixels.setPixelColor(num, color);
+}
 
 void handleNoteOn(byte channel, byte num, byte val){
   Serial.print("NoteOn: channel:");
@@ -179,13 +198,13 @@ void handleNoteOn(byte channel, byte num, byte val){
     return;
   }
   int cIndx = (int)(num % (sizeof(colors) / sizeof(colors[0])));
-  uint32_t color = colors[cIndx];
+
   if((val >= 10)&&(val <= 17)){ // pat1
     idx = int(val -10);
     p = pat1[idx].p;
     pixels.clear();
     for(cnt=0;cnt<pat1[idx].size;cnt++){
-       pixels.setPixelColor(p[cnt], color);
+       setColor(p[cnt], cIndx);
     }
     pixels.show();
   }else if((val >= 20)&&(val <= 27)){
@@ -193,7 +212,7 @@ void handleNoteOn(byte channel, byte num, byte val){
     p = pat2[idx].p;
     pixels.clear();
     for(cnt=0;cnt<pat2[idx].size;cnt++){
-       pixels.setPixelColor(p[cnt], color);
+       setColor(p[cnt], cIndx);
     }
     pixels.show();
   }else if((val >= 30)&&(val <= 37)){
@@ -201,7 +220,7 @@ void handleNoteOn(byte channel, byte num, byte val){
     p = pat3[idx].p;
     pixels.clear();
     for(cnt=0;cnt<pat3[idx].size;cnt++){
-       pixels.setPixelColor(p[cnt], color);
+       setColor(p[cnt], cIndx);
     }
     pixels.show();
   }else if((val >= 40)&&(val <= 47)){
@@ -209,7 +228,7 @@ void handleNoteOn(byte channel, byte num, byte val){
     p = pat4[idx].p;
     pixels.clear();
     for(cnt=0;cnt<pat4[idx].size;cnt++){
-       pixels.setPixelColor(p[cnt], color);
+       setColor(p[cnt], cIndx);
     }
     pixels.show();
   }else{
